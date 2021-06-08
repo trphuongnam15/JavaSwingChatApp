@@ -71,7 +71,7 @@ public class Server extends JFrame implements ActionListener {
         p1.add(l4);
 
         a1 = new JTextArea();
-        a1.setBounds(5, 75, 440, 550);
+        a1.setBounds(5, 75, 440, 570);
         a1.setBackground(Color.PINK);
         add(a1);
 
@@ -97,6 +97,7 @@ public class Server extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent actionEvent) {
-
+        String out = t1.getText();
+        a1.setText(a1.getText() + "\n" + out);
     }
 }
