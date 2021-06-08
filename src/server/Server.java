@@ -8,6 +8,7 @@ public class Server extends JFrame implements ActionListener {
     JPanel p1;
     JTextField t1;
     JButton b1;
+    JTextArea a1;
 
     Server() {
         p1 = new JPanel();
@@ -68,6 +69,11 @@ public class Server extends JFrame implements ActionListener {
         l4.setForeground(Color.WHITE);
         l4.setBounds(110, 35, 100, 20);
         p1.add(l4);
+
+        a1 = new JTextArea();
+        a1.setBounds(5, 75, 440, 550);
+        a1.setBackground(Color.PINK);
+        add(a1);
 
         t1 = new JTextField();
         t1.setBounds(5, 655, 310, 40);
