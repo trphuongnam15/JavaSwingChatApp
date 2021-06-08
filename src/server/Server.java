@@ -2,9 +2,12 @@ package server;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
-public class Server extends JFrame {
+public class Server extends JFrame implements ActionListener {
     JPanel p1;
+    JTextField t1;
+    JButton b1;
 
     Server() {
         p1 = new JPanel();
@@ -19,6 +22,12 @@ public class Server extends JFrame {
         JLabel l1 = new JLabel(i3);
         l1.setBounds(5, 17, 30, 30);
         p1.add(l1);
+
+        l1.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent mouseEvent) {
+                System.exit(0);
+            }
+        });
 
         ImageIcon i4 = new ImageIcon(ClassLoader.getSystemResource("server/icons/1.png"));
         Image i5 = i4.getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT);
@@ -60,10 +69,28 @@ public class Server extends JFrame {
         l4.setBounds(110, 35, 100, 20);
         p1.add(l4);
 
-        getContentPane().setBackground(Color.YELLOW);
+        t1 = new JTextField();
+        t1.setBounds(5, 655, 310, 40);
+        t1.setFont(new Font("SAN_SERIF", Font.PLAIN, 16));
+        add(t1);
+
+        b1 = new JButton("Send");
+        b1.setBounds(320, 655, 123, 40);
+        b1.setBackground(new Color(7, 94, 84));
+        b1.setForeground(Color.WHITE);
+        b1.setFont(new Font("SAN_SERIF", Font.PLAIN, 16));
+        b1.addActionListener(this);
+        add(b1);
+
+        //getContentPane().setBackground(Color.YELLOW);
         setLayout(null);
         setSize(450, 700);
         setLocation(400, 200);
+        setUndecorated(true);
         setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent actionEvent) {
+
     }
 }
