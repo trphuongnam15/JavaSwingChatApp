@@ -27,8 +27,29 @@ public class Server extends JFrame {
         l2.setBounds(40, 5, 60, 60);
         p1.add(l2);
 
+        ImageIcon i7 = new ImageIcon(ClassLoader.getSystemResource("server/icons/video.png"));
+        Image i8 = i7.getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT);
+        ImageIcon i9 = new ImageIcon(i8);
+        JLabel l5 = new JLabel(i9);
+        l5.setBounds(290, 20, 30, 30);
+        p1.add(l5);
+
+        ImageIcon i11 = new ImageIcon(ClassLoader.getSystemResource("server/icons/phone.png"));
+        Image i12 = i11.getImage().getScaledInstance(35, 30, Image.SCALE_DEFAULT);
+        ImageIcon i13 = new ImageIcon(i12);
+        JLabel l6 = new JLabel(i13);
+        l6.setBounds(350, 20, 35, 30);
+        p1.add(l6);
+
+        ImageIcon i14 = new ImageIcon(ClassLoader.getSystemResource("server/icons/3icon.png"));
+        Image i15 = i14.getImage().getScaledInstance(13, 25, Image.SCALE_DEFAULT);
+        ImageIcon i16 = new ImageIcon(i15);
+        JLabel l7 = new JLabel(i16);
+        l7.setBounds(410, 20, 13, 25);
+        p1.add(l7);
+
         JLabel l3 = new JLabel("Gaitonde");
-        l3.setFont(new Font("SAN_SERIF", Font.BOLD, 19));
+        l3.setFont(new Font("SAN_SERIF", Font.BOLD, 18));
         l3.setForeground(Color.WHITE);
         l3.setBounds(110, 15, 100, 20);
         p1.add(l3);
