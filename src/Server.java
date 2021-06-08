@@ -2,7 +2,7 @@ import javax.swing.*;
 
 public class Server extends JFrame {
     Server() {
-        setSize(500, 600);
+        setSize(450, 700);
         setVisible(true);
     }
 
