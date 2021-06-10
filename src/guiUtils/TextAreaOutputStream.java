@@ -1,4 +1,4 @@
-package GuiUtils;
+package guiUtils;
 
 import java.io.IOException;
 import java.io.OutputStream;

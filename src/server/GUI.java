@@ -1,6 +1,6 @@
 package server;
 
-import GuiUtils.TextAreaOutputStream;
+import guiUtils.TextAreaOutputStream;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
