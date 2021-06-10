@@ -1,13 +1,12 @@
 package server;
 
+import GuiUtils.TextAreaOutputStream;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import me.alexpanov.net.FreePortFinder;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -21,7 +20,6 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
-
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -31,7 +29,6 @@ import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import java.awt.Color;
-
 
 public class GUI extends JFrame implements ActionListener {
     public static SimpleDateFormat formatter = new SimpleDateFormat("[hh:mm a]");
@@ -135,5 +132,76 @@ public class GUI extends JFrame implements ActionListener {
         int port = (int)Math.floor(Math.random()*(max - min + 1) + min);
         PORT = port;
         return port;
+    }
+
+    private static class ServerHandler implements Runnable{
+        @Override
+        public void run() {
+            try {
+                server = new ServerSocket(PORT);
+                addToLogs("Server started on port: " + PORT);
+                addToLogs("Now listening for connections...");
+                while(!exit) {
+                    if (connectedClients.size() <= MAX_CONNECTED){
+                        new Thread(new ClientHandler(server.accept())).start();
+                    }
+                }
+            }
+            catch (Exception e) {
+                addToLogs("\nError occurred: \n");
+                addToLogs(Arrays.toString(e.getStackTrace()));
+                addToLogs("\nExiting...");
+            }
+        }
+    }
+
+    private static class ClientHandler implements Runnable {
+        private Socket socket;
+        private PrintWriter out;
+        private BufferedReader in;
+        private String name;
+
+        public ClientHandler(Socket socket) {
+            this.socket = socket;
+        }
+
+        @Override
+        public void run(){
+            addToLogs("Client connected: " + socket.getInetAddress());
+            try {
+                in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                out = new PrintWriter(socket.getOutputStream(), true);
+                for(;;) {
+                    name = in.readLine();
+                    if (name == null) {
+                        return;
+                    }
+                    synchronized (connectedClients) {
+                        if (!name.isEmpty() && !connectedClients.keySet().contains(name)) break;
+                        else out.println("INVALID_NAME");
+                    }
+                }
+                out.println("Welcome to the chat group, " + name.toUpperCase() + "!");
+                addToLogs(name.toUpperCase() + " has joined.");
+                broadcastMessage("[SYSTEM] " + name.toUpperCase() + " has joined.");
+                connectedClients.put(name, out);
+                String message;
+                out.println("You may join the chat now...");
+                while ((message = in.readLine()) != null && !exit) {
+                    if (!message.isEmpty()) {
+                        if (message.toLowerCase().equals("/quit")) break;
+                        broadcastMessage(String.format("[%s] %s", name, message));
+                    }
+                }
+            } catch (Exception e) {
+                addToLogs(e.getMessage());
+            } finally {
+                if (name != null) {
+                    addToLogs(name + " is leaving");
+                    connectedClients.remove(name);
+                    broadcastMessage(name + " has left");
+                }
+            }
+        }
     }
 }
