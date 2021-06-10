@@ -5,7 +5,13 @@ import java.net.*;
 import java.util.HashMap;
 
 public class Main {
-    public static void main(String[] args) {
-        new Server().setVisible(true);
+    private static HashMap<String, PrintWriter> connectedClients = new HashMap<>();
+    private static final int MAX_CONNECTED = 50;
+    private static int PORT;
+    private static boolean verbose;
+    private static ServerSocket server;
+
+    private static class ClientHandler implements Runnable {
+        
     }
 }
