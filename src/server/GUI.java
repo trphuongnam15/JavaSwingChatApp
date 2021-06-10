@@ -110,4 +110,8 @@ public class GUI extends JFrame implements ActionListener {
     public void refreshUIComponents() {
         lblChatServer.setText("CHAT SERVER" + (!exit ? ": "+PORT:""));
     }
+
+    public static void start() {
+        new Thread(new ServerHandler()).start();
+    }
 }
