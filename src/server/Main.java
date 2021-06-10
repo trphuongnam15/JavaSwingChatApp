@@ -64,6 +64,11 @@ public class Main {
                 }
             }
         }
+        
+        private static void broadcastMessage(String message) {
+            for (PrintWriter p: connectedClients.values()) {
+                p.println(message);
+            }
         }
     }
 }
