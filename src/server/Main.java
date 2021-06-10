@@ -36,7 +36,7 @@ public class Main {
                     }
                     synchronized (connectedClients) {
                         if (!name.isEmpty() && !connectedClients.keySet().contains(name)) break;
-                        else out.println("INVALIDNAME");
+                        else out.println("INVALID_NAME");
                     }
                 }
                 out.println("Welcome to the chat group, " + name.toUpperCase() + "!");
