@@ -94,9 +94,7 @@ public class Main {
                 }
             }
         }
-        public static void stop() throws IOException {
-            if (!server.isClosed()) server.close();
-        }
+
         private static int getRandomPort() {
             int min = 50000;
             int max = 60000;
@@ -104,8 +102,8 @@ public class Main {
             PORT = port;
             return port;
         }
-        public static void main(String[] args) throws IOException {
-            start(args[0].toLowerCase().equals("verbose") ? true : false);
+        public static void main(String[] args) {
+            start(args[0].equalsIgnoreCase("verbose"));
         }
     }
 }
