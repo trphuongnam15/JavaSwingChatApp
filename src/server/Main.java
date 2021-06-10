@@ -47,8 +47,8 @@ public class Main {
                 out.println("You may join the chat now...");
                 while ((message = in.readLine()) != null) {
                     if (!message.isEmpty()) {
-                        if (message.toLowerCase().equals("/quit")) break;
-                        if (message.toLowerCase().equals("hamima")) {
+                        if (message.equalsIgnoreCase("/quit")) break;
+                        if (message.equalsIgnoreCase("hamima")) {
                             broadcastMessage("palaigit si hamima");
                         }
                         broadcastMessage(name + ": " + message);
