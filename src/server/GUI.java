@@ -34,11 +34,18 @@ import java.awt.Color;
 
 
 public class GUI extends JFrame implements ActionListener {
-    JPanel p1;
-    JTextField t1;
-    JButton b1;
-    JTextArea a1;
+    public static SimpleDateFormat formatter = new SimpleDateFormat("[hh:mm a]");
+    private static HashMap<String, PrintWriter> connectedClients = new HashMap<>();
+    private static final int MAX_CONNECTED = 50;
+    private static int PORT;
+    private static ServerSocket server;
+    private static volatile boolean exit = false;
 
+    private JPanel contentPane;
+    private JTextArea txtAreaLogs;
+    private JButton btnStart;
+    private JLabel lblChatServer;
+    
     GUI() {
         p1 = new JPanel();
         p1.setLayout(null);
