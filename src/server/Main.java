@@ -20,5 +20,50 @@ public class Main {
         public ClientHandler(Socket socket) {
             this.socket = socket;
         }
+
+        @Override
+        public void run() {
+            if (verbose)
+                System.out.println("Client connected: " + socket.getInetAddress());
+            try {
+                in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                out = new PrintWriter(socket.getOutputStream(), true);
+                for(;;) {
+                    out.println("Enter username:\t");
+                    name = in.readLine();
+                    if (name == null) {
+                        return;
+                    }
+                    synchronized (connectedClients) {
+                        if (!name.isEmpty() && !connectedClients.keySet().contains(name)) break;
+                        else out.println("INVALIDNAME");
+                    }
+                }
+                out.println("Welcome to the chat group, " + name.toUpperCase() + "!");
+                if (verbose) System.out.println(name.toUpperCase() + " has joined.");
+                broadcastMessage("[SYSTEM MESSAGE] " + name.toUpperCase() + " has joined.");
+                connectedClients.put(name, out);
+                String message;
+                out.println("You may join the chat now...");
+                while ((message = in.readLine()) != null) {
+                    if (!message.isEmpty()) {
+                        if (message.toLowerCase().equals("/quit")) break;
+                        if (message.toLowerCase().equals("hamima")) {
+                            broadcastMessage("palaigit si hamima");
+                        }
+                        broadcastMessage(name + ": " + message);
+                    }
+                }
+            } catch (Exception e) {
+                if (verbose) System.out.println(e);
+            } finally {
+                if (name != null) {
+                    if (verbose) System.out.println(name + " is leaving");
+                    connectedClients.remove(name);
+                    broadcastMessage(name + " has left");
+                }
+            }
+        }
+        }
     }
 }
