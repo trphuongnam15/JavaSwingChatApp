@@ -114,4 +114,8 @@ public class GUI extends JFrame implements ActionListener {
     public static void start() {
         new Thread(new ServerHandler()).start();
     }
+
+    public static void stop() throws IOException {
+        if (!server.isClosed()) server.close();
+    }
 }
