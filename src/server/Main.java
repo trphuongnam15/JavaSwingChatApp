@@ -97,5 +97,12 @@ public class Main {
         public static void stop() throws IOException {
             if (!server.isClosed()) server.close();
         }
+        private static int getRandomPort() {
+            int min = 50000;
+            int max = 60000;
+            int port = (int)Math.floor(Math.random()*(max - min + 1) + min);
+            PORT = port;
+            return port;
+        }
     }
 }
