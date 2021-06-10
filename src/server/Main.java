@@ -12,6 +12,9 @@ public class Main {
     private static ServerSocket server;
 
     private static class ClientHandler implements Runnable {
-        
+        private Socket socket;
+        private PrintWriter out;
+        private BufferedReader in;
+        private String name;
     }
 }
