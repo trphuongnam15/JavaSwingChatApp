@@ -64,10 +64,34 @@ public class Main {
                 }
             }
         }
-        
+
         private static void broadcastMessage(String message) {
             for (PrintWriter p: connectedClients.values()) {
                 p.println(message);
+            }
+        }
+        public static void start(boolean isVerbose) {
+            verbose = isVerbose;
+            try {
+                server = new ServerSocket(getRandomPort());
+                if (verbose) {
+                    System.out.println("Server started on port: " + PORT);
+                    System.out.println("Now listening for connections...");
+                }
+                for(;;) {
+                    if (connectedClients.size() <= MAX_CONNECTED){
+                        Thread newClient = new Thread(
+                                new ClientHandler(server.accept()));
+                        newClient.start();
+                    }
+                }
+            }
+            catch (Exception e) {
+                if (verbose) {
+                    System.out.println("\nError occured: \n");
+                    e.printStackTrace();
+                    System.out.println("\nExiting...");
+                }
             }
         }
     }
