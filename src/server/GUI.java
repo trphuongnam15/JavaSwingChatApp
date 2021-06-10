@@ -4,13 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class Server extends JFrame implements ActionListener {
+public class GUI extends JFrame implements ActionListener {
     JPanel p1;
     JTextField t1;
     JButton b1;
     JTextArea a1;
 
-    Server() {
+    GUI() {
         p1 = new JPanel();
         p1.setLayout(null);
         p1.setBackground(new Color(7, 94, 84));

@@ -88,7 +88,7 @@ public class Main {
             }
             catch (Exception e) {
                 if (verbose) {
-                    System.out.println("\nError occured: \n");
+                    System.out.println("\nError occurred: \n");
                     e.printStackTrace();
                     System.out.println("\nExiting...");
                 }
@@ -103,6 +103,9 @@ public class Main {
             int port = (int)Math.floor(Math.random()*(max - min + 1) + min);
             PORT = port;
             return port;
+        }
+        public static void main(String[] args) throws IOException {
+            start(args[0].toLowerCase().equals("verbose") ? true : false);
         }
     }
 }
