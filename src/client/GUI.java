@@ -163,4 +163,12 @@ public class GUI extends JFrame implements ActionListener {
             addToLogs("[ERROR] "+err.getLocalizedMessage());
         }
     }
+
+    public void stop(){
+        if(!clientSocket.isClosed()) {
+            try {
+                clientSocket.close();
+            } catch (IOException e1) {}
+        }
+    }
 }
