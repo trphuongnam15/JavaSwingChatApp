@@ -106,4 +106,8 @@ public class GUI extends JFrame implements ActionListener {
         }
         refreshUIComponents();
     }
+
+    public void refreshUIComponents() {
+        lblChatServer.setText("CHAT SERVER" + (!exit ? ": "+PORT:""));
+    }
 }
