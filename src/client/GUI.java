@@ -29,7 +29,7 @@ import java.awt.FlowLayout;
 import javax.swing.JTextField;
 
 
-public class GUI {
+public class GUI  extends JFrame implements ActionListener {
     private static Socket clientSocket;
     private static int PORT;
     private PrintWriter out;
