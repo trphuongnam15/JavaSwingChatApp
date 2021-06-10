@@ -1,5 +1,7 @@
 package client;
 
+import guiUtils.TextAreaOutputStream;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
@@ -29,7 +31,7 @@ import java.awt.FlowLayout;
 import javax.swing.JTextField;
 
 
-public class GUI  extends JFrame implements ActionListener {
+public class GUI extends JFrame implements ActionListener {
     private static Socket clientSocket;
     private static int PORT;
     private PrintWriter out;
@@ -47,4 +49,104 @@ public class GUI  extends JFrame implements ActionListener {
     private JTextField txtNickname;
     private JTextField txtPort;
     private String clientName;
+
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    GUI frame = new GUI();
+                    UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+                    SwingUtilities.updateComponentTreeUI(frame);
+                    //Logs
+                    System.setOut(new PrintStream(new TextAreaOutputStream(frame.txtAreaLogs)));
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public ClientUI() {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 570, 400);
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+        contentPane.setLayout(new BorderLayout(0, 0));
+
+        panelNorth = new JPanel();
+        contentPane.add(panelNorth, BorderLayout.NORTH);
+        panelNorth.setLayout(new BorderLayout(0, 0));
+
+        lblChatClient = new JLabel("CHAT CLIENT");
+        lblChatClient.setHorizontalAlignment(SwingConstants.CENTER);
+        lblChatClient.setFont(new Font("Tahoma", Font.PLAIN, 40));
+        panelNorth.add(lblChatClient, BorderLayout.NORTH);
+
+        panelNorthSouth = new JPanel();
+        panelNorth.add(panelNorthSouth, BorderLayout.SOUTH);
+        panelNorthSouth.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
+
+        lblName = new JLabel("Nickname");
+        panelNorthSouth.add(lblName);
+
+        txtNickname = new JTextField();
+        txtNickname.setColumns(10);
+        panelNorthSouth.add(txtNickname);
+
+        lblPort = new JLabel("Port");
+        panelNorthSouth.add(lblPort);
+
+        txtPort = new JTextField();
+        panelNorthSouth.add(txtPort);
+        txtPort.setColumns(10);
+
+        btnStart = new JButton("START");
+        panelNorthSouth.add(btnStart);
+        btnStart.addActionListener(this);
+        btnStart.setFont(new Font("Tahoma", Font.PLAIN, 12));
+
+        JScrollPane scrollPane = new JScrollPane();
+        contentPane.add(scrollPane, BorderLayout.CENTER);
+
+        txtAreaLogs = new JTextArea();
+        txtAreaLogs.setBackground(Color.BLACK);
+        txtAreaLogs.setForeground(Color.WHITE);
+        txtAreaLogs.setLineWrap(true);
+        scrollPane.setViewportView(txtAreaLogs);
+
+        panelSouth = new JPanel();
+        FlowLayout fl_panelSouth = (FlowLayout) panelSouth.getLayout();
+        fl_panelSouth.setAlignment(FlowLayout.RIGHT);
+        contentPane.add(panelSouth, BorderLayout.SOUTH);
+
+        txtMessage = new JTextField();
+        panelSouth.add(txtMessage);
+        txtMessage.setColumns(50);
+
+        btnSend = new JButton("SEND");
+        btnSend.addActionListener(this);
+        btnSend.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        panelSouth.add(btnSend);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == btnStart) {
+            if(btnStart.getText().equals("START")) {
+                btnStart.setText("STOP");
+                start();
+            }else {
+                btnStart.setText("START");
+                stop();
+            }
+        }else if(e.getSource() == btnSend) {
+            String message = txtMessage.getText().trim();
+            if(!message.isEmpty()) {
+                out.println(message);
+                txtMessage.setText("");
+            }
+        }
+    }
 }
