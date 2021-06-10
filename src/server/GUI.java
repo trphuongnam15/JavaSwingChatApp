@@ -50,10 +50,9 @@ public class GUI extends JFrame implements ActionListener {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    ServerUI frame = new ServerUI();
+                    GUI frame = new GUI();
                     UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
                     SwingUtilities.updateComponentTreeUI(frame);
-                    //Logs
                     System.setOut(new PrintStream(new TextAreaOutputStream(frame.txtAreaLogs)));
                     frame.setVisible(true);
                 } catch (Exception e) {
@@ -61,5 +60,33 @@ public class GUI extends JFrame implements ActionListener {
                 }
             }
         });
+    }
+
+    public GUI() {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 570, 400);
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+        contentPane.setLayout(new BorderLayout(0, 0));
+
+        lblChatServer = new JLabel("CHAT SERVER");
+        lblChatServer.setHorizontalAlignment(SwingConstants.CENTER);
+        lblChatServer.setFont(new Font("Tahoma", Font.PLAIN, 40));
+        contentPane.add(lblChatServer, BorderLayout.NORTH);
+
+        btnStart = new JButton("START");
+        btnStart.addActionListener(this);
+        btnStart.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        contentPane.add(btnStart, BorderLayout.SOUTH);
+
+        JScrollPane scrollPane = new JScrollPane();
+        contentPane.add(scrollPane, BorderLayout.CENTER);
+
+        txtAreaLogs = new JTextArea();
+        txtAreaLogs.setBackground(Color.BLACK);
+        txtAreaLogs.setForeground(Color.WHITE);
+        txtAreaLogs.setLineWrap(true);
+        scrollPane.setViewportView(txtAreaLogs);
     }
 }
