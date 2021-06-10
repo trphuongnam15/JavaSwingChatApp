@@ -128,4 +128,12 @@ public class GUI extends JFrame implements ActionListener {
     public static void addToLogs(String message) {
         System.out.printf("%s %s\n", formatter.format(new Date()), message);
     }
+
+    private static int getRandomPort() {
+        int min = 50000;
+        int max = 60000;
+        int port = (int)Math.floor(Math.random()*(max - min + 1) + min);
+        PORT = port;
+        return port;
+    }
 }
