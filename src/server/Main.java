@@ -16,5 +16,9 @@ public class Main {
         private PrintWriter out;
         private BufferedReader in;
         private String name;
+
+        public ClientHandler(Socket socket) {
+            this.socket = socket;
+        }
     }
 }
