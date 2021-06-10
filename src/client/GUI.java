@@ -136,7 +136,6 @@ public class GUI extends JFrame implements ActionListener {
             clientSocket = new Socket("localhost", PORT);
             out = new PrintWriter(clientSocket.getOutputStream(), true);
             new Thread(new Listener()).start();
-            //send name
             out.println(clientName);
         } catch (Exception err) {
             addToLogs("[ERROR] "+err.getLocalizedMessage());
