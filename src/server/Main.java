@@ -94,5 +94,8 @@ public class Main {
                 }
             }
         }
+        public static void stop() throws IOException {
+            if (!server.isClosed()) server.close();
+        }
     }
 }
