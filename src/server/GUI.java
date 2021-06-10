@@ -89,4 +89,21 @@ public class GUI extends JFrame implements ActionListener {
         txtAreaLogs.setLineWrap(true);
         scrollPane.setViewportView(txtAreaLogs);
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == btnStart) {
+            if(btnStart.getText().equals("START")) {
+                exit = false;
+                getRandomPort();
+                start();
+                btnStart.setText("STOP");
+            }else {
+                addToLogs("Chat server stopped...");
+                exit = true;
+                btnStart.setText("START");
+            }
+        }
+        refreshUIComponents();
+    }
 }
