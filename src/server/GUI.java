@@ -124,4 +124,8 @@ public class GUI extends JFrame implements ActionListener {
             p.println(message);
         }
     }
+
+    public static void addToLogs(String message) {
+        System.out.printf("%s %s\n", formatter.format(new Date()), message);
+    }
 }
