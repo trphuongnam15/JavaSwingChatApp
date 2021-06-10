@@ -67,7 +67,7 @@ public class GUI extends JFrame implements ActionListener {
         });
     }
 
-    public ClientUI() {
+    public GUI() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 570, 400);
         contentPane = new JPanel();
@@ -173,6 +173,23 @@ public class GUI extends JFrame implements ActionListener {
     }
 
     public static void addToLogs(String message) {
-        System.out.printf("%s %s\n", ServerUI.formatter.format(new Date()), message);
+        System.out.printf("%s %s\n", server.GUI.formatter.format(new Date()), message);
+    }
+
+    private static class Listener implements Runnable {
+        private BufferedReader in;
+        @Override
+        public void run() {
+            try {
+                in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                String read;
+                for(;;) {
+                    read = in.readLine();
+                    if (read != null && !(read.isEmpty())) addToLogs(read);
+                }
+            } catch (IOException e) {
+                return;
+            }
+        }
     }
 }
