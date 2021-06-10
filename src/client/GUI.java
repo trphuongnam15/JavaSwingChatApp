@@ -171,4 +171,8 @@ public class GUI extends JFrame implements ActionListener {
             } catch (IOException e1) {}
         }
     }
+
+    public static void addToLogs(String message) {
+        System.out.printf("%s %s\n", ServerUI.formatter.format(new Date()), message);
+    }
 }
