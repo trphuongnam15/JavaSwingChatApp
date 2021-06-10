@@ -105,10 +105,6 @@ public class GUI extends JFrame implements ActionListener {
         new Thread(new ServerHandler()).start();
     }
 
-    public static void stop() throws IOException {
-        if (!server.isClosed()) server.close();
-    }
-
     private static void broadcastMessage(String message) {
         for (PrintWriter p: connectedClients.values()) {
             p.println(message);
