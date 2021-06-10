@@ -149,4 +149,18 @@ public class GUI extends JFrame implements ActionListener {
             }
         }
     }
+
+    public void start() {
+        try {
+            PORT = Integer.parseInt(txtPort.getText().trim());
+            clientName = txtNickname.getText().trim();
+            clientSocket = new Socket("localhost", PORT);
+            out = new PrintWriter(clientSocket.getOutputStream(), true);
+            new Thread(new Listener()).start();
+            //send name
+            out.println(clientName);
+        } catch (Exception err) {
+            addToLogs("[ERROR] "+err.getLocalizedMessage());
+        }
+    }
 }
