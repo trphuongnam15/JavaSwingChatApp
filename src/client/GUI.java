@@ -1,7 +1,6 @@
 package client;
 
 import guiUtils.TextAreaOutputStream;
-
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
@@ -15,13 +14,10 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Scanner;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
